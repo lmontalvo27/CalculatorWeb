@@ -1,4 +1,25 @@
-.Main {
-    background-color: aqua;
+#Calculator {
+    padding: 20px;
+    background: #333;
+}
 
+.results-display {
+    background-color: rgb(244, 241, 241);
+    padding: 10px;
+    text-align: right;
+}
+
+#results-value {
+    color: #0f0;
+    font-family: monospace;
+    font-size: 2rem;
+    margin: 0;
+}
+
+#Buttons {
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    gap:10px;
+    margin-top: 20px;
 }

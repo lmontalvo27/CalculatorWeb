@@ -4,6 +4,8 @@ let secondNumber = '';
 let onSecondNum = false;
 let operator = '';
 let display = '0';
+let firstHasDecimal = false;
+let secondHasDecimal = false;
 
 const buttons = document.querySelectorAll('#Buttons button');
 
@@ -12,6 +14,7 @@ const result = document.querySelector('#result-value');
 buttons.forEach((btn) => {``
     btn.addEventListener("click", () => {
         let value = btn.value;
+        result.textContent = value;
         //let currentInput = '';
 
         if(!isNaN(value) && onSecondNum === false) {
@@ -27,7 +30,22 @@ buttons.forEach((btn) => {``
             console.log(onSecondNum);
 
 
-        }else if(value === '*' || value === '/' || value === '+' || value === '-'){
+        }
+        else if (value === ".") {
+            if (onSecondNum === true && secondHasDecimal === false){
+                secondNumber += value;
+                secondHasDecimal = true;
+
+            } else {
+                if(firstHasDecimal === false){
+                    firstNumber += value;
+                    firstHasDecimal = true;
+                }
+                
+            }
+
+
+        } else if(value === '*' || value === '/' || value === '+' || value === '-'){
             operator = value;
             onSecondNum = true;
             console.log(operator);
@@ -37,27 +55,37 @@ buttons.forEach((btn) => {``
             display = firstNumber;
             first = Number(firstNumber);
             second = Number(secondNumber);
-            added = first + second;
-            result.textContent = added;
-            console.log("Testing values");
-            console.log(firstNumber);
-            console.log(operator);
-            console.log(secondNumber);
-            console.log(added);
 
             if(operator === '+') {
-                console.log("Addition result: ", sum(first, second));
+                let sumRes = sum(first, second);
+                result.textContent = sumRes;
+                console.log("Addition result: ", sumRes);
             } else if (operator === '-') {
-                console.log("Subtraction result: ", subtract(first, second));
+                let subRes = subtract(first, second);
+                result.textContent = subRes;
+                console.log("Subtraction result: ", subRes);
             } else if (operator === '*') {
-                console.log("Multiplication result: ", multiply(first, second));
+                let multRes =  multiply(first, second);
+                result.textContent = multRes;
+                console.log("Multiplication result: ", multRes);
             } else if (operator === '/') {
-                console.log("Division result: ", divide(first, second));
+                if (secondNumber === 0) {
+                    console.log("Second num is 0");
+                    result.textContent = "Error"
+                } else {
+                
+                    let divRes = divide(first, second);
+                result.textContent = divRes;
+                console.log("Division result: ", divRes);
+                }
+                
             }
         } else if(value === 'clear') {
             firstNumber = '';
             secondNumber = '';
             onSecondNum = false;
+            firstHasDecimal = false;
+            secondHasDecimal = false;
             operator = '';
             result.textContent = '0';
         }
